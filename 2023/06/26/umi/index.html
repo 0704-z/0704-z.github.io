@@ -1,189 +1,173 @@
-
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>umi的使用 | Zzm</title>
-        <meta name="author" content="John Doe" />
-        <meta name="description" content="" />
-        <meta name="keywords" content="" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-        <link rel="icon" href="/images/favicon.png" />
-        <script src="https://cdn.staticfile.org/vue/3.2.47/vue.global.prod.min.js"></script>
-<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.3.0/css/all.min.css" />
-<link rel="stylesheet" href="/css/fonts.min.css" />
-<script> const mixins = {}; </script>
-
-<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-
-
-<script src="https://cdn.staticfile.org/highlight.js/11.7.0/highlight.min.js"></script>
-<script src="https://cdn.staticfile.org/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
-<link
-    rel="stylesheet"
-    href="https://cdn.staticfile.org/highlight.js/11.7.0/styles/github.min.css"
-/>
-<script src="/js/lib/highlight.js"></script>
-
-
-
-<script src="/js/lib/preview.js"></script>
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="/css/main.css" />
-
-    <meta name="generator" content="Hexo 6.3.0"></head>
-    <body>
-        <div id="layout">
-            <transition name="fade">
-                <div id="loading" v-show="loading">
-                    <div id="loading-circle">
-                        <h2>LOADING</h2>
-                        <p>加载过慢请开启缓存 浏览器默认开启</p>
-                        <img src="/images/loading.gif" />
-                    </div>
-                </div>
-            </transition>
-            <nav id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
-    <div id="desktop-menu">
-        <a class="title" href="/">
-            <span>ZZM</span>
-        </a>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="false">
+<meta property="og:type" content="article">
+<meta property="og:title" content="umi的使用">
+<meta property="og:url" content="http://example.com/2023/06/26/umi/index.html">
+<meta property="og:site_name" content="Zzm">
+<meta property="og:description" content="false">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img2.baidu.com/it/u=2753849152,1104447999&fm=253&fmt=auto&app=138&f=JPEG?w=1020&h=459">
+<meta property="article:published_time" content="2023-06-26T02:07:47.000Z">
+<meta property="article:modified_time" content="2023-06-26T03:42:47.129Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="React">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img2.baidu.com/it/u=2753849152,1104447999&fm=253&fmt=auto&app=138&f=JPEG?w=1020&h=459">
+    
+    
+      
         
-        <a href="/">
-            <i class="fa-solid fa-house fa-fw"></i>
-            <span>&ensp;Home</span>
-        </a>
+          <link rel="shortcut icon" href="/images/favicon.ico">
         
-        <a href="/about">
-            <i class="fa-solid fa-id-card fa-fw"></i>
-            <span>&ensp;About</span>
-        </a>
+      
+      
         
-        <a href="/archives">
-            <i class="fa-solid fa-box-archive fa-fw"></i>
-            <span>&ensp;Archives</span>
-        </a>
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
         
-        <a href="/categories">
-            <i class="fa-solid fa-bookmark fa-fw"></i>
-            <span>&ensp;Categories</span>
-        </a>
+      
+      
         
-        <a href="/tags">
-            <i class="fa-solid fa-tags fa-fw"></i>
-            <span>&ensp;Tags</span>
-        </a>
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
         
-    </div>
-    <div id="mobile-menu">
-        <div class="title" @click="showMenuItems = !showMenuItems">
-            <i class="fa-solid fa-bars fa-fw"></i>
-            <span>&emsp;ZZM</span>
-        </div>
-        <transition name="slide">
-            <div class="items" v-show="showMenuItems">
-                
-                <a href="/">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-house fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
-                    </div>
-                </a>
-                
-                <a href="/about">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-id-card fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
-                    </div>
-                </a>
-                
-                <a href="/archives">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-box-archive fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
-                    </div>
-                </a>
-                
-                <a href="/categories">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-bookmark fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
-                    </div>
-                </a>
-                
-                <a href="/tags">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-tags fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
-                    </div>
-                </a>
-                
-            </div>
-        </transition>
-    </div>
-</nav>
-<transition name="fade">
-    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
-</transition>
+      
+    
+    <!-- title -->
+    <title>umi的使用</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
 
-            <transition name="into">
-                <div id="main" v-show="!loading">
-                    <div class="article">
-    <div>
-        <h1>umi的使用</h1>
-    </div>
-    <div class="info">
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2023/6/26
-        </span>
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
         
-        <span class="category">
-            <a href="/categories/%E7%BC%96%E7%A8%8B/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                编程
-            </a>
-        </span>
+        <li><a class="icon" aria-label="Previous post" href="/2023/07/13/reduce/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <span class="tags">
-            <span class="icon">
-                <i class="fa-solid fa-tags fa-fw"></i>
-            </span>
-            
-            <span class="tag">
-                
-                <a href="/tags/React/" style="color: #00bcd4">React</a>
-            </span>
-            
-        </span>
+        <li><a class="icon" aria-label="Next post" href="/2023/06/21/protal/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/06/26/umi/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/06/26/umi/&text=umi的使用"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/06/26/umi/&title=umi的使用"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/06/26/umi/&is_video=false&description=umi的使用"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=umi的使用&body=Check out this article: http://example.com/2023/06/26/umi/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/06/26/umi/&title=umi的使用"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/06/26/umi/&title=umi的使用"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/06/26/umi/&title=umi的使用"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/06/26/umi/&title=umi的使用"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/06/26/umi/&name=umi的使用&description=false"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/06/26/umi/&t=umi的使用"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
     </div>
     
-    <div class="content" v-pre>
-        <h2 id="Umi介绍"><a href="#Umi介绍" class="headerlink" title="Umi介绍"></a>Umi介绍</h2><p>Umi，中文发音为「乌米」，是可扩展的企业级前端应用框架。Umi 以路由为基础的，同时支持配置式路由和约定式路由，保证路由的功能完备，并以此进行功能扩展。然后配以生命周期完善的插件体系，覆盖从源码到构建产物的每个生命周期，支持各种功能扩展和业务需求。</p>
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Umi%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">Umi介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%B8%8D%E7%94%A8-Umi%EF%BC%9F"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">什么时候不用 Umi？</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B"><span class="toc-number">2.</span> <span class="toc-text">快速上手</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E9%A6%96%E5%85%88%E6%88%91%E4%BB%AC%E4%B8%8B%E8%BD%BDpnpm-%E5%AE%98%E6%96%B9%E6%8E%A8%E8%8D%90"><span class="toc-number">2.1.</span> <span class="toc-text">1、首先我们下载pnpm (官方推荐)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#pnpm%E4%BD%BF%E7%94%A8"><span class="toc-number">2.1.0.1.</span> <span class="toc-text">pnpm使用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFpnpm"><span class="toc-number">2.1.0.2.</span> <span class="toc-text">什么是pnpm</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-number">2.2.</span> <span class="toc-text">1、创建项目</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">路由的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E8%B7%AF%E7%94%B1"><span class="toc-number">3.1.</span> <span class="toc-text">配置路由</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-number">3.2.</span> <span class="toc-text">路由重定向</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%AD%90%E8%B7%AF%E7%94%B1"><span class="toc-number">3.3.</span> <span class="toc-text">配置子路由</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#404%E8%B7%AF%E7%94%B1"><span class="toc-number">3.4.</span> <span class="toc-text">404路由</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E6%8B%A6%E6%88%AA"><span class="toc-number">3.5.</span> <span class="toc-text">路由拦截</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E8%B7%B3%E8%BD%AC"><span class="toc-number">3.6.</span> <span class="toc-text">路由跳转</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E4%BC%A0%E5%8F%82"><span class="toc-number">3.7.</span> <span class="toc-text">路由传参</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#params%E4%BC%A0%E5%8F%82"><span class="toc-number">3.7.0.1.</span> <span class="toc-text">params传参</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#state%E4%BC%A0%E5%8F%82"><span class="toc-number">3.7.0.2.</span> <span class="toc-text">state传参</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%AE%E5%89%8D%E6%94%AF%E6%8C%81%E7%9A%84%E8%B7%AF%E7%94%B1%E8%B7%AF%E5%BE%84%E9%85%8D%E7%BD%AE%E5%BD%A2%E5%BC%8F%EF%BC%9A"><span class="toc-number">3.8.</span> <span class="toc-text">目前支持的路由路径配置形式：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%90%86"><span class="toc-number">4.</span> <span class="toc-text">配置代理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="toc-number">4.1.</span> <span class="toc-text">反向代理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E7%BB%84%E4%BB%B6%E4%B8%AD%E4%BD%BF%E7%94%A8"><span class="toc-number">4.2.</span> <span class="toc-text">在组件中使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%92%E4%BB%B6"><span class="toc-number">5.</span> <span class="toc-text">插件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%8F%92%E4%BB%B6"><span class="toc-number">5.1.</span> <span class="toc-text">使用插件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mock"><span class="toc-number">6.</span> <span class="toc-text">Mock</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-number">6.1.</span> <span class="toc-text">使用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#mock%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8Bapi-js"><span class="toc-number">6.1.0.1.</span> <span class="toc-text">mock文件夹下api.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9C%A8%E7%BB%84%E4%BB%B6%E4%B8%AD%E4%BD%BF%E7%94%A8-1"><span class="toc-number">6.1.0.2.</span> <span class="toc-text">在组件中使用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#POST%E6%96%B9%E6%B3%95"><span class="toc-number">6.2.</span> <span class="toc-text">POST方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#mock%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8Bapi-js-1"><span class="toc-number">6.2.0.1.</span> <span class="toc-text">mock文件夹下api.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9C%A8%E7%BB%84%E4%BB%B6%E4%B8%AD%E4%BD%BF%E7%94%A8-2"><span class="toc-number">6.2.0.2.</span> <span class="toc-text">在组件中使用</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dva%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">7.</span> <span class="toc-text">dva的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E5%9C%A8umirc-ts%E6%96%87%E4%BB%B6%E4%B8%AD%E6%89%93%E5%BC%80dva%E6%8F%92%E4%BB%B6"><span class="toc-number">7.1.</span> <span class="toc-text">1、在umirc.ts文件中打开dva插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E5%9C%A8models%E6%96%87%E4%BB%B6%E4%B8%AD%E5%88%9B%E5%BB%BA-ts%E6%96%87%E4%BB%B6"><span class="toc-number">7.2.</span> <span class="toc-text">2、在models文件中创建.ts文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E5%90%8C%E6%AD%A5%E5%86%99%E6%B3%95"><span class="toc-number">7.3.</span> <span class="toc-text">3、同步写法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81%E5%BC%82%E6%AD%A5%E5%86%99%E6%B3%95"><span class="toc-number">7.4.</span> <span class="toc-text">4、异步写法</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        umi的使用
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">John Doe</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-06-26T02:07:47.000Z" class="dt-published" itemprop="datePublished">2023-06-26</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/%E7%BC%96%E7%A8%8B/">编程</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/React/" rel="tag">React</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="Umi介绍"><a href="#Umi介绍" class="headerlink" title="Umi介绍"></a>Umi介绍</h2><p>Umi，中文发音为「乌米」，是可扩展的企业级前端应用框架。Umi 以路由为基础的，同时支持配置式路由和约定式路由，保证路由的功能完备，并以此进行功能扩展。然后配以生命周期完善的插件体系，覆盖从源码到构建产物的每个生命周期，支持各种功能扩展和业务需求。</p>
 <ul>
 <li>Umi 有很多非常有意思的特性，比如。<br>1、企业级，在安全性、稳定性、最佳实践、约束能力方面会考虑更多<br>2、插件化，啥都能改，Umi 本身也是由插件构成<br>3、MFSU，比 Vite 还快的 Webpack 打包方案<br>4、基于 React Router 6 的完备路由<br>5、默认最快的请求<br>6、SSR &amp; SSG<br>7、稳定白盒性能好的 ESLint 和 Jest<br>8、React 18 的框架级接入<br>9、Monorepo 最佳实践</li>
 </ul>
@@ -309,51 +293,143 @@
 <figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useEffect &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123;useLocation, useNavigate,<span class="title class_">Outlet</span>,connect&#125; <span class="keyword">from</span> <span class="string">&quot;umi&quot;</span></span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">NavBar</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;antd-mobile&#x27;</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Cinema</span>(<span class="params">props:<span class="built_in">any</span></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> navigate=<span class="title function_">useNavigate</span>()</span><br><span class="line">  <span class="keyword">const</span> location=<span class="title function_">useLocation</span>()</span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">back</span> = (<span class="params"></span>) =&gt;&#123;</span><br><span class="line">    <span class="title function_">navigate</span>(<span class="string">&#x27;/city&#x27;</span>)</span><br><span class="line">    <span class="comment">// 如果要跳转到City组件</span></span><br><span class="line">    <span class="comment">// 则调用models文件夹下面中的cinemaModels文件中clearList方法</span></span><br><span class="line">    props.<span class="title function_">dispatch</span>(&#123;</span><br><span class="line">      <span class="attr">type</span>:<span class="string">&quot;cinema/clearList&quot;</span>,</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(props.<span class="property">list</span>.<span class="property">length</span>===<span class="number">0</span>)&#123;</span><br><span class="line">      <span class="comment">// 如果props.list为空的话 调用models文件夹下面中的cinemaModels文件中geiList方法</span></span><br><span class="line">      props.<span class="title function_">dispatch</span>(&#123;</span><br><span class="line">        <span class="attr">type</span>:<span class="string">&quot;cinema/geiList&quot;</span>,</span><br><span class="line">        <span class="comment">// 并传递cityId</span></span><br><span class="line">        <span class="attr">payload</span>:&#123;</span><br><span class="line">          <span class="attr">cityId</span>:props.<span class="property">title</span>.<span class="property">cityId</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">      <span class="comment">// 如何有数据则走缓存</span></span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;缓存&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,[])</span><br><span class="line">  <span class="keyword">if</span>(location.<span class="property">pathname</span>==<span class="string">&#x27;/cinema/city&#x27;</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">Outlet</span>/&gt;</span></span></span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">NavBar</span> <span class="attr">back</span>=<span class="string">&#123;props.title.cityName&#125;</span> <span class="attr">onBack</span>=<span class="string">&#123;back&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Cinema<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">NavBar</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">ul</span> <span class="attr">style</span>=<span class="string">&#123;&#123;display:</span>&#x27;<span class="attr">flex</span>&#x27;,<span class="attr">flexWrap:</span>&quot;<span class="attr">wrap</span>&quot;&#125;&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">          &#123;</span></span><br><span class="line"><span class="language-xml">            props.list.map((item:any)=&gt;&#123;</span></span><br><span class="line"><span class="language-xml">              return <span class="tag">&lt;<span class="name">li</span> <span class="attr">key</span>=<span class="string">&#123;item.cinemaId&#125;</span>&gt;</span>&#123;item.name&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            &#125;)</span></span><br><span class="line"><span class="language-xml">          &#125;</span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">connect</span>(<span class="function">(<span class="params">state:<span class="built_in">any</span></span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">title</span>: state.<span class="property">city</span>,</span><br><span class="line">    <span class="attr">list</span>:state.<span class="property">cinema</span>.<span class="property">list</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)(<span class="title class_">Cinema</span>)</span><br></pre></td></tr></table></figure></li>
 </ul>
 
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
     </div>
+
     
     
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Umi%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">Umi介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%B8%8D%E7%94%A8-Umi%EF%BC%9F"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">什么时候不用 Umi？</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B"><span class="toc-number">2.</span> <span class="toc-text">快速上手</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E9%A6%96%E5%85%88%E6%88%91%E4%BB%AC%E4%B8%8B%E8%BD%BDpnpm-%E5%AE%98%E6%96%B9%E6%8E%A8%E8%8D%90"><span class="toc-number">2.1.</span> <span class="toc-text">1、首先我们下载pnpm (官方推荐)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#pnpm%E4%BD%BF%E7%94%A8"><span class="toc-number">2.1.0.1.</span> <span class="toc-text">pnpm使用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFpnpm"><span class="toc-number">2.1.0.2.</span> <span class="toc-text">什么是pnpm</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-number">2.2.</span> <span class="toc-text">1、创建项目</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">路由的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E8%B7%AF%E7%94%B1"><span class="toc-number">3.1.</span> <span class="toc-text">配置路由</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-number">3.2.</span> <span class="toc-text">路由重定向</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%AD%90%E8%B7%AF%E7%94%B1"><span class="toc-number">3.3.</span> <span class="toc-text">配置子路由</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#404%E8%B7%AF%E7%94%B1"><span class="toc-number">3.4.</span> <span class="toc-text">404路由</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E6%8B%A6%E6%88%AA"><span class="toc-number">3.5.</span> <span class="toc-text">路由拦截</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E8%B7%B3%E8%BD%AC"><span class="toc-number">3.6.</span> <span class="toc-text">路由跳转</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E4%BC%A0%E5%8F%82"><span class="toc-number">3.7.</span> <span class="toc-text">路由传参</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#params%E4%BC%A0%E5%8F%82"><span class="toc-number">3.7.0.1.</span> <span class="toc-text">params传参</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#state%E4%BC%A0%E5%8F%82"><span class="toc-number">3.7.0.2.</span> <span class="toc-text">state传参</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%AE%E5%89%8D%E6%94%AF%E6%8C%81%E7%9A%84%E8%B7%AF%E7%94%B1%E8%B7%AF%E5%BE%84%E9%85%8D%E7%BD%AE%E5%BD%A2%E5%BC%8F%EF%BC%9A"><span class="toc-number">3.8.</span> <span class="toc-text">目前支持的路由路径配置形式：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%90%86"><span class="toc-number">4.</span> <span class="toc-text">配置代理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="toc-number">4.1.</span> <span class="toc-text">反向代理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E7%BB%84%E4%BB%B6%E4%B8%AD%E4%BD%BF%E7%94%A8"><span class="toc-number">4.2.</span> <span class="toc-text">在组件中使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%92%E4%BB%B6"><span class="toc-number">5.</span> <span class="toc-text">插件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%8F%92%E4%BB%B6"><span class="toc-number">5.1.</span> <span class="toc-text">使用插件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mock"><span class="toc-number">6.</span> <span class="toc-text">Mock</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-number">6.1.</span> <span class="toc-text">使用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#mock%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8Bapi-js"><span class="toc-number">6.1.0.1.</span> <span class="toc-text">mock文件夹下api.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9C%A8%E7%BB%84%E4%BB%B6%E4%B8%AD%E4%BD%BF%E7%94%A8-1"><span class="toc-number">6.1.0.2.</span> <span class="toc-text">在组件中使用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#POST%E6%96%B9%E6%B3%95"><span class="toc-number">6.2.</span> <span class="toc-text">POST方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#mock%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8Bapi-js-1"><span class="toc-number">6.2.0.1.</span> <span class="toc-text">mock文件夹下api.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9C%A8%E7%BB%84%E4%BB%B6%E4%B8%AD%E4%BD%BF%E7%94%A8-2"><span class="toc-number">6.2.0.2.</span> <span class="toc-text">在组件中使用</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dva%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">7.</span> <span class="toc-text">dva的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E5%9C%A8umirc-ts%E6%96%87%E4%BB%B6%E4%B8%AD%E6%89%93%E5%BC%80dva%E6%8F%92%E4%BB%B6"><span class="toc-number">7.1.</span> <span class="toc-text">1、在umirc.ts文件中打开dva插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E5%9C%A8models%E6%96%87%E4%BB%B6%E4%B8%AD%E5%88%9B%E5%BB%BA-ts%E6%96%87%E4%BB%B6"><span class="toc-number">7.2.</span> <span class="toc-text">2、在models文件中创建.ts文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E5%90%8C%E6%AD%A5%E5%86%99%E6%B3%95"><span class="toc-number">7.3.</span> <span class="toc-text">3、同步写法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81%E5%BC%82%E6%AD%A5%E5%86%99%E6%B3%95"><span class="toc-number">7.4.</span> <span class="toc-text">4、异步写法</span></a></li></ol></li></ol>
+      </div>
     
-    
-    
-    
-    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/06/26/umi/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/06/26/umi/&text=umi的使用"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/06/26/umi/&title=umi的使用"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/06/26/umi/&is_video=false&description=umi的使用"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=umi的使用&body=Check out this article: http://example.com/2023/06/26/umi/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/06/26/umi/&title=umi的使用"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/06/26/umi/&title=umi的使用"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/06/26/umi/&title=umi的使用"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/06/26/umi/&title=umi的使用"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/06/26/umi/&name=umi的使用&description=false"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/06/26/umi/&t=umi的使用"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
 </div>
 
-                    <footer id="footer">
-    <div id="footer-wrap">
-        <div>
-            &copy;
-            2022 - 2023 Zzm
-            <span id="footer-icon">
-                <i class="fa-solid fa-font-awesome fa-fw"></i>
-            </span>
-            &commat;John Doe
-        </div>
-        <div>
-            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
-            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
-        </div>
         
-    </div>
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2023
+    John Doe
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
 </footer>
 
-                </div>
-            </transition>
-            
-            <transition name="fade">
-                <div id="preview" ref="preview" v-show="previewShow">
-                    <img id="preview-content" ref="previewContent" />
-                </div>
-            </transition>
-            
-        </div>
-        <script src="/js/main.js"></script>
-        
-        
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
 
 
 
 
-        
-    </body>
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
 </html>

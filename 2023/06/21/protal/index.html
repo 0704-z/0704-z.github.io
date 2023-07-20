@@ -1,189 +1,173 @@
-
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>protal的使用 | Zzm</title>
-        <meta name="author" content="John Doe" />
-        <meta name="description" content="" />
-        <meta name="keywords" content="" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-        <link rel="icon" href="/images/favicon.png" />
-        <script src="https://cdn.staticfile.org/vue/3.2.47/vue.global.prod.min.js"></script>
-<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.3.0/css/all.min.css" />
-<link rel="stylesheet" href="/css/fonts.min.css" />
-<script> const mixins = {}; </script>
-
-<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-
-
-<script src="https://cdn.staticfile.org/highlight.js/11.7.0/highlight.min.js"></script>
-<script src="https://cdn.staticfile.org/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
-<link
-    rel="stylesheet"
-    href="https://cdn.staticfile.org/highlight.js/11.7.0/styles/github.min.css"
-/>
-<script src="/js/lib/highlight.js"></script>
-
-
-
-<script src="/js/lib/preview.js"></script>
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="/css/main.css" />
-
-    <meta name="generator" content="Hexo 6.3.0"></head>
-    <body>
-        <div id="layout">
-            <transition name="fade">
-                <div id="loading" v-show="loading">
-                    <div id="loading-circle">
-                        <h2>LOADING</h2>
-                        <p>加载过慢请开启缓存 浏览器默认开启</p>
-                        <img src="/images/loading.gif" />
-                    </div>
-                </div>
-            </transition>
-            <nav id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
-    <div id="desktop-menu">
-        <a class="title" href="/">
-            <span>ZZM</span>
-        </a>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="false">
+<meta property="og:type" content="article">
+<meta property="og:title" content="protal的使用">
+<meta property="og:url" content="http://example.com/2023/06/21/protal/index.html">
+<meta property="og:site_name" content="Zzm">
+<meta property="og:description" content="false">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://tm-image.tianyancha.com/tm/cd5dcd956206c5a1dac7532fb56e55bd.jpg">
+<meta property="article:published_time" content="2023-06-21T07:52:01.000Z">
+<meta property="article:modified_time" content="2023-06-26T01:08:03.847Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="React">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tm-image.tianyancha.com/tm/cd5dcd956206c5a1dac7532fb56e55bd.jpg">
+    
+    
+      
         
-        <a href="/">
-            <i class="fa-solid fa-house fa-fw"></i>
-            <span>&ensp;Home</span>
-        </a>
+          <link rel="shortcut icon" href="/images/favicon.ico">
         
-        <a href="/about">
-            <i class="fa-solid fa-id-card fa-fw"></i>
-            <span>&ensp;About</span>
-        </a>
+      
+      
         
-        <a href="/archives">
-            <i class="fa-solid fa-box-archive fa-fw"></i>
-            <span>&ensp;Archives</span>
-        </a>
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
         
-        <a href="/categories">
-            <i class="fa-solid fa-bookmark fa-fw"></i>
-            <span>&ensp;Categories</span>
-        </a>
+      
+      
         
-        <a href="/tags">
-            <i class="fa-solid fa-tags fa-fw"></i>
-            <span>&ensp;Tags</span>
-        </a>
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
         
-    </div>
-    <div id="mobile-menu">
-        <div class="title" @click="showMenuItems = !showMenuItems">
-            <i class="fa-solid fa-bars fa-fw"></i>
-            <span>&emsp;ZZM</span>
-        </div>
-        <transition name="slide">
-            <div class="items" v-show="showMenuItems">
-                
-                <a href="/">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-house fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
-                    </div>
-                </a>
-                
-                <a href="/about">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-id-card fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
-                    </div>
-                </a>
-                
-                <a href="/archives">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-box-archive fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
-                    </div>
-                </a>
-                
-                <a href="/categories">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-bookmark fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
-                    </div>
-                </a>
-                
-                <a href="/tags">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-tags fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
-                    </div>
-                </a>
-                
-            </div>
-        </transition>
-    </div>
-</nav>
-<transition name="fade">
-    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
-</transition>
+      
+    
+    <!-- title -->
+    <title>protal的使用</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
 
-            <transition name="into">
-                <div id="main" v-show="!loading">
-                    <div class="article">
-    <div>
-        <h1>protal的使用</h1>
-    </div>
-    <div class="info">
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2023/6/21
-        </span>
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
         
-        <span class="category">
-            <a href="/categories/%E7%BC%96%E7%A8%8B/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                编程
-            </a>
-        </span>
+        <li><a class="icon" aria-label="Previous post" href="/2023/06/26/umi/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <span class="tags">
-            <span class="icon">
-                <i class="fa-solid fa-tags fa-fw"></i>
-            </span>
-            
-            <span class="tag">
-                
-                <a href="/tags/React/" style="color: #00bcd4">React</a>
-            </span>
-            
-        </span>
+        <li><a class="icon" aria-label="Next post" href="/2023/06/08/reduxSaga/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/06/21/protal/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/06/21/protal/&text=protal的使用"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/06/21/protal/&title=protal的使用"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/06/21/protal/&is_video=false&description=protal的使用"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=protal的使用&body=Check out this article: http://example.com/2023/06/21/protal/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/06/21/protal/&title=protal的使用"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/06/21/protal/&title=protal的使用"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/06/21/protal/&title=protal的使用"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/06/21/protal/&title=protal的使用"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/06/21/protal/&name=protal的使用&description=false"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/06/21/protal/&t=protal的使用"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
     </div>
     
-    <div class="content" v-pre>
-        <h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><ul>
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">2.</span> <span class="toc-text">代码</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#App-jsx"><span class="toc-number">2.0.0.1.</span> <span class="toc-text">App.jsx</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Dialog-jsx"><span class="toc-number">2.0.0.2.</span> <span class="toc-text">Dialog.jsx</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%A1%B5%E9%9D%A2%E6%95%88%E6%9E%9C"><span class="toc-number">2.0.0.3.</span> <span class="toc-text">页面效果</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%9C%80%E5%88%9D%E6%95%88%E6%9E%9C-%E5%BC%B9%E7%AA%97%E8%BF%98%E6%B2%A1%E6%98%BE%E7%A4%BA%E7%9A%84%E6%97%B6%E5%80%99-body%E4%B8%AD%E5%8F%AA%E6%9C%89root%E8%BF%99%E4%B8%AA%E6%9C%80%E5%A4%A7%E7%9A%84%E6%A0%B9%E5%85%83%E7%B4%A0"><span class="toc-number">2.0.0.3.1.</span> <span class="toc-text">最初效果 弹窗还没显示的时候 body中只有root这个最大的根元素</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%BD%93%E6%88%91%E4%BB%AC%E7%82%B9%E5%87%BBajax%E8%BF%99%E4%B8%AA%E6%8C%89%E9%92%AE%E7%9A%84%E6%97%B6%E5%80%99"><span class="toc-number">2.0.0.3.2.</span> <span class="toc-text">当我们点击ajax这个按钮的时候</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%BC%B9%E7%AA%97%E5%B1%95%E7%A4%BA-%E5%B9%B6%E4%B8%94body%E4%B8%AD%E6%9C%89%E4%BA%86%E4%B8%80%E4%B8%AA%E5%92%8Croot%E5%B9%B3%E7%BA%A7%E7%9A%84%E5%85%83%E7%B4%A0-%E8%BF%99%E6%AD%A3%E6%98%AF%E6%88%91%E4%BB%AC%E7%9A%84%E5%BC%B9%E7%AA%97%E7%BB%84%E4%BB%B6%E7%9A%84%E5%85%83%E7%B4%A0"><span class="toc-number">2.0.0.3.3.</span> <span class="toc-text">弹窗展示 并且body中有了一个和root平级的元素 这正是我们的弹窗组件的元素</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BD%93%E6%88%91%E7%82%B9%E5%87%BB%E5%85%B3%E9%97%AD%E6%8C%89%E9%92%AE%E6%97%B6-%E5%BC%B9%E7%AA%97%E4%BC%9A%E6%B6%88%E5%A4%B1-%E5%B9%B6%E4%B8%94%E8%BF%99%E4%B8%AA%E8%B7%9Froot%E5%B9%B3%E7%BA%A7%E7%9A%84%E5%85%83%E7%B4%A0%E4%B9%9F%E4%BC%9A%E4%B8%80%E5%90%8C%E6%B6%88%E5%A4%B1"><span class="toc-number">2.0.0.4.</span> <span class="toc-text">当我点击关闭按钮时 弹窗会消失 并且这个跟root平级的元素也会一同消失</span></a></li></ol></li></ol></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        protal的使用
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">John Doe</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-06-21T07:52:01.000Z" class="dt-published" itemprop="datePublished">2023-06-21</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/%E7%BC%96%E7%A8%8B/">编程</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/React/" rel="tag">React</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><ul>
 <li>portal 即传送门，他可以将组件渲染到指定元素下，而不限于当前书写的 JSX 层级结构</li>
 <li>用途：当需要将某个元素始终保持在顶层时，可以使用 protal 将其传入到 body 下</li>
 </ul>
@@ -1841,51 +1825,143 @@ zkRsPkajCY9JdJ92BGzHwUYTHtuX7Vr0um/iIEEwfd+l76P07+37N98z7dvCJgRB4HAm/yEEACBv
 u3rLcHqrcIqB995775H/tuGjlEJObmcIHqV2EGyCYfuyJv51RWcN7lL0um9ikyDYjcxJOlM1Sfdf
 d9tV2velXIIgcDiT/xACAJC3Mf9SkVJFAYt+Ra875OHZ1f8fxRDgmJEM09UAAAAASUVORK5CYII='/></p>
 <h5 id="当我点击关闭按钮时-弹窗会消失-并且这个跟root平级的元素也会一同消失"><a href="#当我点击关闭按钮时-弹窗会消失-并且这个跟root平级的元素也会一同消失" class="headerlink" title="当我点击关闭按钮时 弹窗会消失 并且这个跟root平级的元素也会一同消失"></a>当我点击关闭按钮时 弹窗会消失 并且这个跟root平级的元素也会一同消失</h5>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
     </div>
+
     
     
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">2.</span> <span class="toc-text">代码</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#App-jsx"><span class="toc-number">2.0.0.1.</span> <span class="toc-text">App.jsx</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Dialog-jsx"><span class="toc-number">2.0.0.2.</span> <span class="toc-text">Dialog.jsx</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%A1%B5%E9%9D%A2%E6%95%88%E6%9E%9C"><span class="toc-number">2.0.0.3.</span> <span class="toc-text">页面效果</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%9C%80%E5%88%9D%E6%95%88%E6%9E%9C-%E5%BC%B9%E7%AA%97%E8%BF%98%E6%B2%A1%E6%98%BE%E7%A4%BA%E7%9A%84%E6%97%B6%E5%80%99-body%E4%B8%AD%E5%8F%AA%E6%9C%89root%E8%BF%99%E4%B8%AA%E6%9C%80%E5%A4%A7%E7%9A%84%E6%A0%B9%E5%85%83%E7%B4%A0"><span class="toc-number">2.0.0.3.1.</span> <span class="toc-text">最初效果 弹窗还没显示的时候 body中只有root这个最大的根元素</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%BD%93%E6%88%91%E4%BB%AC%E7%82%B9%E5%87%BBajax%E8%BF%99%E4%B8%AA%E6%8C%89%E9%92%AE%E7%9A%84%E6%97%B6%E5%80%99"><span class="toc-number">2.0.0.3.2.</span> <span class="toc-text">当我们点击ajax这个按钮的时候</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%BC%B9%E7%AA%97%E5%B1%95%E7%A4%BA-%E5%B9%B6%E4%B8%94body%E4%B8%AD%E6%9C%89%E4%BA%86%E4%B8%80%E4%B8%AA%E5%92%8Croot%E5%B9%B3%E7%BA%A7%E7%9A%84%E5%85%83%E7%B4%A0-%E8%BF%99%E6%AD%A3%E6%98%AF%E6%88%91%E4%BB%AC%E7%9A%84%E5%BC%B9%E7%AA%97%E7%BB%84%E4%BB%B6%E7%9A%84%E5%85%83%E7%B4%A0"><span class="toc-number">2.0.0.3.3.</span> <span class="toc-text">弹窗展示 并且body中有了一个和root平级的元素 这正是我们的弹窗组件的元素</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BD%93%E6%88%91%E7%82%B9%E5%87%BB%E5%85%B3%E9%97%AD%E6%8C%89%E9%92%AE%E6%97%B6-%E5%BC%B9%E7%AA%97%E4%BC%9A%E6%B6%88%E5%A4%B1-%E5%B9%B6%E4%B8%94%E8%BF%99%E4%B8%AA%E8%B7%9Froot%E5%B9%B3%E7%BA%A7%E7%9A%84%E5%85%83%E7%B4%A0%E4%B9%9F%E4%BC%9A%E4%B8%80%E5%90%8C%E6%B6%88%E5%A4%B1"><span class="toc-number">2.0.0.4.</span> <span class="toc-text">当我点击关闭按钮时 弹窗会消失 并且这个跟root平级的元素也会一同消失</span></a></li></ol></li></ol></li></ol></li></ol>
+      </div>
     
-    
-    
-    
-    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/06/21/protal/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/06/21/protal/&text=protal的使用"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/06/21/protal/&title=protal的使用"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/06/21/protal/&is_video=false&description=protal的使用"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=protal的使用&body=Check out this article: http://example.com/2023/06/21/protal/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/06/21/protal/&title=protal的使用"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/06/21/protal/&title=protal的使用"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/06/21/protal/&title=protal的使用"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/06/21/protal/&title=protal的使用"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/06/21/protal/&name=protal的使用&description=false"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/06/21/protal/&t=protal的使用"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
 </div>
 
-                    <footer id="footer">
-    <div id="footer-wrap">
-        <div>
-            &copy;
-            2022 - 2023 Zzm
-            <span id="footer-icon">
-                <i class="fa-solid fa-font-awesome fa-fw"></i>
-            </span>
-            &commat;John Doe
-        </div>
-        <div>
-            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
-            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
-        </div>
         
-    </div>
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2023
+    John Doe
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
 </footer>
 
-                </div>
-            </transition>
-            
-            <transition name="fade">
-                <div id="preview" ref="preview" v-show="previewShow">
-                    <img id="preview-content" ref="previewContent" />
-                </div>
-            </transition>
-            
-        </div>
-        <script src="/js/main.js"></script>
-        
-        
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
 
 
 
 
-        
-    </body>
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
 </html>

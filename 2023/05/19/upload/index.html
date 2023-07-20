@@ -1,189 +1,173 @@
-
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>封装一个上传图片的组件 | Zzm</title>
-        <meta name="author" content="John Doe" />
-        <meta name="description" content="" />
-        <meta name="keywords" content="" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-        <link rel="icon" href="/images/favicon.png" />
-        <script src="https://cdn.staticfile.org/vue/3.2.47/vue.global.prod.min.js"></script>
-<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.3.0/css/all.min.css" />
-<link rel="stylesheet" href="/css/fonts.min.css" />
-<script> const mixins = {}; </script>
-
-<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-
-
-<script src="https://cdn.staticfile.org/highlight.js/11.7.0/highlight.min.js"></script>
-<script src="https://cdn.staticfile.org/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
-<link
-    rel="stylesheet"
-    href="https://cdn.staticfile.org/highlight.js/11.7.0/styles/github.min.css"
-/>
-<script src="/js/lib/highlight.js"></script>
-
-
-
-<script src="/js/lib/preview.js"></script>
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="/css/main.css" />
-
-    <meta name="generator" content="Hexo 6.3.0"></head>
-    <body>
-        <div id="layout">
-            <transition name="fade">
-                <div id="loading" v-show="loading">
-                    <div id="loading-circle">
-                        <h2>LOADING</h2>
-                        <p>加载过慢请开启缓存 浏览器默认开启</p>
-                        <img src="/images/loading.gif" />
-                    </div>
-                </div>
-            </transition>
-            <nav id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
-    <div id="desktop-menu">
-        <a class="title" href="/">
-            <span>ZZM</span>
-        </a>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="false">
+<meta property="og:type" content="article">
+<meta property="og:title" content="封装一个上传图片的组件">
+<meta property="og:url" content="http://example.com/2023/05/19/upload/index.html">
+<meta property="og:site_name" content="Zzm">
+<meta property="og:description" content="false">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img2.baidu.com/it/u=2754882029,714091813&fm=253&fmt=auto&app=138&f=PNG?w=600&h=331">
+<meta property="article:published_time" content="2023-05-19T07:32:03.000Z">
+<meta property="article:modified_time" content="2023-05-19T07:51:20.716Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="React">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img2.baidu.com/it/u=2754882029,714091813&fm=253&fmt=auto&app=138&f=PNG?w=600&h=331">
+    
+    
+      
         
-        <a href="/">
-            <i class="fa-solid fa-house fa-fw"></i>
-            <span>&ensp;Home</span>
-        </a>
+          <link rel="shortcut icon" href="/images/favicon.ico">
         
-        <a href="/about">
-            <i class="fa-solid fa-id-card fa-fw"></i>
-            <span>&ensp;About</span>
-        </a>
+      
+      
         
-        <a href="/archives">
-            <i class="fa-solid fa-box-archive fa-fw"></i>
-            <span>&ensp;Archives</span>
-        </a>
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
         
-        <a href="/categories">
-            <i class="fa-solid fa-bookmark fa-fw"></i>
-            <span>&ensp;Categories</span>
-        </a>
+      
+      
         
-        <a href="/tags">
-            <i class="fa-solid fa-tags fa-fw"></i>
-            <span>&ensp;Tags</span>
-        </a>
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
         
-    </div>
-    <div id="mobile-menu">
-        <div class="title" @click="showMenuItems = !showMenuItems">
-            <i class="fa-solid fa-bars fa-fw"></i>
-            <span>&emsp;ZZM</span>
-        </div>
-        <transition name="slide">
-            <div class="items" v-show="showMenuItems">
-                
-                <a href="/">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-house fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
-                    </div>
-                </a>
-                
-                <a href="/about">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-id-card fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
-                    </div>
-                </a>
-                
-                <a href="/archives">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-box-archive fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
-                    </div>
-                </a>
-                
-                <a href="/categories">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-bookmark fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
-                    </div>
-                </a>
-                
-                <a href="/tags">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-tags fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
-                    </div>
-                </a>
-                
-            </div>
-        </transition>
-    </div>
-</nav>
-<transition name="fade">
-    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
-</transition>
+      
+    
+    <!-- title -->
+    <title>封装一个上传图片的组件</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
 
-            <transition name="into">
-                <div id="main" v-show="!loading">
-                    <div class="article">
-    <div>
-        <h1>封装一个上传图片的组件</h1>
-    </div>
-    <div class="info">
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2023/5/19
-        </span>
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
         
-        <span class="category">
-            <a href="/categories/%E7%BC%96%E7%A8%8B/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                编程
-            </a>
-        </span>
+        <li><a class="icon" aria-label="Previous post" href="/2023/05/19/hook/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <span class="tags">
-            <span class="icon">
-                <i class="fa-solid fa-tags fa-fw"></i>
-            </span>
-            
-            <span class="tag">
-                
-                <a href="/tags/React/" style="color: #00a596">React</a>
-            </span>
-            
-        </span>
+        <li><a class="icon" aria-label="Next post" href="/2023/05/19/redux/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/05/19/upload/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/05/19/upload/&text=封装一个上传图片的组件"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/05/19/upload/&title=封装一个上传图片的组件"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/05/19/upload/&is_video=false&description=封装一个上传图片的组件"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=封装一个上传图片的组件&body=Check out this article: http://example.com/2023/05/19/upload/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/05/19/upload/&title=封装一个上传图片的组件"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/05/19/upload/&title=封装一个上传图片的组件"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/05/19/upload/&title=封装一个上传图片的组件"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/05/19/upload/&title=封装一个上传图片的组件"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/05/19/upload/&name=封装一个上传图片的组件&description=false"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/05/19/upload/&t=封装一个上传图片的组件"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
     </div>
     
-    <div class="content" v-pre>
-        <h2 id="上传图片"><a href="#上传图片" class="headerlink" title="上传图片"></a>上传图片</h2><h4 id="后台配置"><a href="#后台配置" class="headerlink" title="后台配置"></a>后台配置</h4><h5 id="upLoad-js"><a href="#upLoad-js" class="headerlink" title="upLoad.js"></a>upLoad.js</h5><ul>
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87"><span class="toc-number">1.</span> <span class="toc-text">上传图片</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8E%E5%8F%B0%E9%85%8D%E7%BD%AE"><span class="toc-number">1.0.1.</span> <span class="toc-text">后台配置</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#upLoad-js"><span class="toc-number">1.0.1.1.</span> <span class="toc-text">upLoad.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#config-default-js"><span class="toc-number">1.0.1.2.</span> <span class="toc-text">config.default.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#router-js"><span class="toc-number">1.0.1.3.</span> <span class="toc-text">router.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#http-js"><span class="toc-number">1.0.1.4.</span> <span class="toc-text">http.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#UpLoad-jsx"><span class="toc-number">1.0.1.5.</span> <span class="toc-text">UpLoad.jsx</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Topic-jsx"><span class="toc-number">1.0.1.6.</span> <span class="toc-text">Topic.jsx</span></a></li></ol></li></ol></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        封装一个上传图片的组件
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">John Doe</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-05-19T07:32:03.000Z" class="dt-published" itemprop="datePublished">2023-05-19</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/%E7%BC%96%E7%A8%8B/">编程</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/React/" rel="tag">React</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="上传图片"><a href="#上传图片" class="headerlink" title="上传图片"></a>上传图片</h2><h4 id="后台配置"><a href="#后台配置" class="headerlink" title="后台配置"></a>后台配置</h4><h5 id="upLoad-js"><a href="#upLoad-js" class="headerlink" title="upLoad.js"></a>upLoad.js</h5><ul>
 <li>在后台controller文件夹下创建一个upLoad.js文件<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;mz/fs&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> moment = <span class="built_in">require</span>(<span class="string">&#x27;moment&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> mkdirp = <span class="built_in">require</span>(<span class="string">&#x27;mkdirp&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">Controller</span> = <span class="built_in">require</span>(<span class="string">&#x27;egg&#x27;</span>).<span class="property">Controller</span>;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">lmhUpload</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Controller</span> &#123;</span><br><span class="line">    <span class="comment">// 调用这个方法</span></span><br><span class="line">    <span class="keyword">async</span> <span class="title function_">updatepuSubPic</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> &#123; ctx &#125; = <span class="variable language_">this</span>;</span><br><span class="line">        <span class="comment">// 需要前往 config/config.default.js 设置 config.multipart 的 mode 属性为 file</span></span><br><span class="line">        <span class="keyword">const</span> file = ctx.<span class="property">request</span>.<span class="property">files</span>[<span class="number">0</span>];</span><br><span class="line">        <span class="comment">// 声明存放资源的路径</span></span><br><span class="line">        <span class="keyword">let</span> pusubPics = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">        <span class="comment">// let id = &#x27;&#x27;;</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// ctx.request.files[0] 表示获取第一个文件，若前端上传多个文件则可以遍历这个数组对象</span></span><br><span class="line">            <span class="keyword">const</span> f = fs.<span class="title function_">readFileSync</span>(file.<span class="property">filepath</span>);</span><br><span class="line">            <span class="comment">// 1.获取当前日期</span></span><br><span class="line">            <span class="keyword">const</span> day = <span class="title function_">moment</span>(<span class="keyword">new</span> <span class="title class_">Date</span>()).<span class="title function_">format</span>(<span class="string">&#x27;YYYYMMDD&#x27;</span>);</span><br><span class="line">            <span class="comment">// 2.创建图片保存的路径</span></span><br><span class="line">            <span class="comment">// 需要前往 config/config.default.js 设置 config.pusubPics 路径为app/public/pusubPics</span></span><br><span class="line">            <span class="keyword">const</span> dir = path.<span class="title function_">join</span>(<span class="variable language_">this</span>.<span class="property">config</span>.<span class="property">pusubPics</span>, day);</span><br><span class="line">            <span class="keyword">const</span> date = <span class="title class_">Date</span>.<span class="title function_">now</span>(); <span class="comment">// 毫秒数</span></span><br><span class="line">            <span class="keyword">await</span> <span class="title function_">mkdirp</span>(dir); <span class="comment">// 不存在就创建目录</span></span><br><span class="line">            <span class="comment">// 返回图片保存的路径</span></span><br><span class="line">            pusubPics = path.<span class="title function_">join</span>(dir, date + path.<span class="title function_">extname</span>(file.<span class="property">filename</span>));</span><br><span class="line">            <span class="comment">// decodeURI是为了中文乱码</span></span><br><span class="line">            <span class="comment">// id = await ctx.service.dlqupload.add(&#123; img_url: api + uploadDir, filename: decodeURI(file.filename) &#125;);</span></span><br><span class="line">            <span class="comment">// 写入文件夹</span></span><br><span class="line">            fs.<span class="title function_">writeFileSync</span>(pusubPics, f);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;error&#x27;</span>, e);</span><br><span class="line">            <span class="comment">// 清除临时文件</span></span><br><span class="line">            ctx.<span class="title function_">cleanupRequestFiles</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        ctx.<span class="property">body</span> = &#123;</span><br><span class="line">            <span class="attr">code</span>: <span class="number">200</span>,</span><br><span class="line">            <span class="attr">msg</span>: <span class="string">&#x27;上传成功&#x27;</span>,</span><br><span class="line">            <span class="attr">data</span>: pusubPics.<span class="title function_">replace</span>(<span class="regexp">/app/g</span>, <span class="string">&#x27;&#x27;</span>),</span><br><span class="line">            <span class="comment">// id,</span></span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = lmhUpload;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h5 id="config-default-js"><a href="#config-default-js" class="headerlink" title="config.default.js"></a>config.default.js</h5><ul>
@@ -202,51 +186,143 @@
 <li>在需要上传图片的组件中引入Upload组件<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useEffect, useRef, useState &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> style <span class="keyword">from</span> <span class="string">&quot;./topic.module.css&quot;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">UpLoad</span> <span class="keyword">from</span> <span class="string">&#x27;../../../../components/UpLoad&#x27;</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">Topic</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> [obj,setObj]=<span class="title function_">useState</span>(&#123;</span><br><span class="line">        <span class="attr">images</span>:<span class="string">&#x27;&#x27;</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="comment">// 副作用</span></span><br><span class="line">    <span class="title function_">useEffect</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">        <span class="comment">// 判断obj中的数据是否为空</span></span><br><span class="line">        <span class="keyword">if</span>(obj.<span class="property">images</span>!==<span class="string">&quot;&quot;</span>)&#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(obj)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// useEffect根据obj.text的变化执行</span></span><br><span class="line">    &#125;,[obj.<span class="property">images</span>])</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#123;style.box&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        &#123;/* 上传图片 */&#125;</span></span><br><span class="line"><span class="language-xml">        &#123;/* 向子组件传给回调 子组件调用并传参 父组件接收参数 */&#125;</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">UpLoad</span> <span class="attr">getImage</span>=<span class="string">&#123;(http)</span>=&gt;</span>&#123;</span></span><br><span class="line"><span class="language-xml">            const arr=http.map((item)=&gt;&#123;</span></span><br><span class="line"><span class="language-xml">                return item.replaceAll(&#x27;\\&#x27;,&#x27;/&#x27;)</span></span><br><span class="line"><span class="language-xml">            &#125;)</span></span><br><span class="line"><span class="language-xml">            // 将接到的参数转为字符串 存入obj.images中</span></span><br><span class="line"><span class="language-xml">            setObj(&#123;...obj,images:JSON.stringify(arr)&#125;)</span></span><br><span class="line"><span class="language-xml">        &#125;&#125;/&gt;</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
     </div>
+
     
     
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87"><span class="toc-number">1.</span> <span class="toc-text">上传图片</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8E%E5%8F%B0%E9%85%8D%E7%BD%AE"><span class="toc-number">1.0.1.</span> <span class="toc-text">后台配置</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#upLoad-js"><span class="toc-number">1.0.1.1.</span> <span class="toc-text">upLoad.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#config-default-js"><span class="toc-number">1.0.1.2.</span> <span class="toc-text">config.default.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#router-js"><span class="toc-number">1.0.1.3.</span> <span class="toc-text">router.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#http-js"><span class="toc-number">1.0.1.4.</span> <span class="toc-text">http.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#UpLoad-jsx"><span class="toc-number">1.0.1.5.</span> <span class="toc-text">UpLoad.jsx</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Topic-jsx"><span class="toc-number">1.0.1.6.</span> <span class="toc-text">Topic.jsx</span></a></li></ol></li></ol></li></ol></li></ol>
+      </div>
     
-    
-    
-    
-    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/05/19/upload/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/05/19/upload/&text=封装一个上传图片的组件"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/05/19/upload/&title=封装一个上传图片的组件"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/05/19/upload/&is_video=false&description=封装一个上传图片的组件"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=封装一个上传图片的组件&body=Check out this article: http://example.com/2023/05/19/upload/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/05/19/upload/&title=封装一个上传图片的组件"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/05/19/upload/&title=封装一个上传图片的组件"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/05/19/upload/&title=封装一个上传图片的组件"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/05/19/upload/&title=封装一个上传图片的组件"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/05/19/upload/&name=封装一个上传图片的组件&description=false"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/05/19/upload/&t=封装一个上传图片的组件"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
 </div>
 
-                    <footer id="footer">
-    <div id="footer-wrap">
-        <div>
-            &copy;
-            2022 - 2023 Zzm
-            <span id="footer-icon">
-                <i class="fa-solid fa-font-awesome fa-fw"></i>
-            </span>
-            &commat;John Doe
-        </div>
-        <div>
-            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
-            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
-        </div>
         
-    </div>
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2023
+    John Doe
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
 </footer>
 
-                </div>
-            </transition>
-            
-            <transition name="fade">
-                <div id="preview" ref="preview" v-show="previewShow">
-                    <img id="preview-content" ref="previewContent" />
-                </div>
-            </transition>
-            
-        </div>
-        <script src="/js/main.js"></script>
-        
-        
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
 
 
 
 
-        
-    </body>
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
 </html>

@@ -1,189 +1,173 @@
-
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>Redux以及中间件RTK的使用（持久化版） | Zzm</title>
-        <meta name="author" content="John Doe" />
-        <meta name="description" content="" />
-        <meta name="keywords" content="" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-        <link rel="icon" href="/images/favicon.png" />
-        <script src="https://cdn.staticfile.org/vue/3.2.47/vue.global.prod.min.js"></script>
-<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.3.0/css/all.min.css" />
-<link rel="stylesheet" href="/css/fonts.min.css" />
-<script> const mixins = {}; </script>
-
-<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-
-
-<script src="https://cdn.staticfile.org/highlight.js/11.7.0/highlight.min.js"></script>
-<script src="https://cdn.staticfile.org/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
-<link
-    rel="stylesheet"
-    href="https://cdn.staticfile.org/highlight.js/11.7.0/styles/github.min.css"
-/>
-<script src="/js/lib/highlight.js"></script>
-
-
-
-<script src="/js/lib/preview.js"></script>
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="/css/main.css" />
-
-    <meta name="generator" content="Hexo 6.3.0"></head>
-    <body>
-        <div id="layout">
-            <transition name="fade">
-                <div id="loading" v-show="loading">
-                    <div id="loading-circle">
-                        <h2>LOADING</h2>
-                        <p>加载过慢请开启缓存 浏览器默认开启</p>
-                        <img src="/images/loading.gif" />
-                    </div>
-                </div>
-            </transition>
-            <nav id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
-    <div id="desktop-menu">
-        <a class="title" href="/">
-            <span>ZZM</span>
-        </a>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="false">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redux以及中间件RTK的使用（持久化版）">
+<meta property="og:url" content="http://example.com/2023/05/19/redux/index.html">
+<meta property="og:site_name" content="Zzm">
+<meta property="og:description" content="false">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img2.baidu.com/it/u=1395866631,3488559697&fm=253&fmt=auto&app=138&f=JPEG?w=650&h=268">
+<meta property="article:published_time" content="2023-05-19T06:52:03.000Z">
+<meta property="article:modified_time" content="2023-06-01T03:15:14.667Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="React">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img2.baidu.com/it/u=1395866631,3488559697&fm=253&fmt=auto&app=138&f=JPEG?w=650&h=268">
+    
+    
+      
         
-        <a href="/">
-            <i class="fa-solid fa-house fa-fw"></i>
-            <span>&ensp;Home</span>
-        </a>
+          <link rel="shortcut icon" href="/images/favicon.ico">
         
-        <a href="/about">
-            <i class="fa-solid fa-id-card fa-fw"></i>
-            <span>&ensp;About</span>
-        </a>
+      
+      
         
-        <a href="/archives">
-            <i class="fa-solid fa-box-archive fa-fw"></i>
-            <span>&ensp;Archives</span>
-        </a>
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
         
-        <a href="/categories">
-            <i class="fa-solid fa-bookmark fa-fw"></i>
-            <span>&ensp;Categories</span>
-        </a>
+      
+      
         
-        <a href="/tags">
-            <i class="fa-solid fa-tags fa-fw"></i>
-            <span>&ensp;Tags</span>
-        </a>
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
         
-    </div>
-    <div id="mobile-menu">
-        <div class="title" @click="showMenuItems = !showMenuItems">
-            <i class="fa-solid fa-bars fa-fw"></i>
-            <span>&emsp;ZZM</span>
-        </div>
-        <transition name="slide">
-            <div class="items" v-show="showMenuItems">
-                
-                <a href="/">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-house fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
-                    </div>
-                </a>
-                
-                <a href="/about">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-id-card fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
-                    </div>
-                </a>
-                
-                <a href="/archives">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-box-archive fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
-                    </div>
-                </a>
-                
-                <a href="/categories">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-bookmark fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
-                    </div>
-                </a>
-                
-                <a href="/tags">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-tags fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
-                    </div>
-                </a>
-                
-            </div>
-        </transition>
-    </div>
-</nav>
-<transition name="fade">
-    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
-</transition>
+      
+    
+    <!-- title -->
+    <title>Redux以及中间件RTK的使用（持久化版）</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
 
-            <transition name="into">
-                <div id="main" v-show="!loading">
-                    <div class="article">
-    <div>
-        <h1>Redux以及中间件RTK的使用（持久化版）</h1>
-    </div>
-    <div class="info">
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2023/5/19
-        </span>
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
         
-        <span class="category">
-            <a href="/categories/%E7%BC%96%E7%A8%8B/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                编程
-            </a>
-        </span>
+        <li><a class="icon" aria-label="Previous post" href="/2023/05/19/upload/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <span class="tags">
-            <span class="icon">
-                <i class="fa-solid fa-tags fa-fw"></i>
-            </span>
-            
-            <span class="tag">
-                
-                <a href="/tags/React/" style="color: #03a9f4">React</a>
-            </span>
-            
-        </span>
+        <li><a class="icon" aria-label="Next post" href="/2023/05/19/dimSearch/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/05/19/redux/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/05/19/redux/&text=Redux以及中间件RTK的使用（持久化版）"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/05/19/redux/&title=Redux以及中间件RTK的使用（持久化版）"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/05/19/redux/&is_video=false&description=Redux以及中间件RTK的使用（持久化版）"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Redux以及中间件RTK的使用（持久化版）&body=Check out this article: http://example.com/2023/05/19/redux/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/05/19/redux/&title=Redux以及中间件RTK的使用（持久化版）"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/05/19/redux/&title=Redux以及中间件RTK的使用（持久化版）"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/05/19/redux/&title=Redux以及中间件RTK的使用（持久化版）"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/05/19/redux/&title=Redux以及中间件RTK的使用（持久化版）"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/05/19/redux/&name=Redux以及中间件RTK的使用（持久化版）&description=false"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/05/19/redux/&t=Redux以及中间件RTK的使用（持久化版）"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
     </div>
     
-    <div class="content" v-pre>
-        <h2 id="Redux的使用-求和案例"><a href="#Redux的使用-求和案例" class="headerlink" title="Redux的使用(求和案例)"></a>Redux的使用(求和案例)</h2><h5 id="store-js"><a href="#store-js" class="headerlink" title="store.js"></a>store.js</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    该文件专门用于暴露一个store对象 整个应用只有一个store对象</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">// 引入createStore 专门用于创建redux中最为核心的store对象</span></span><br><span class="line"><span class="keyword">import</span> &#123; legacy_createStore &#125; <span class="keyword">from</span> <span class="string">&#x27;redux&#x27;</span></span><br><span class="line"><span class="comment">// 引入为Count组件服务的reducer</span></span><br><span class="line"><span class="keyword">import</span> countReducer <span class="keyword">from</span> <span class="string">&quot;./count_reducer.js&quot;</span></span><br><span class="line"><span class="comment">// 暴露store</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">legacy_createStore</span>(countReducer)</span><br></pre></td></tr></table></figure>
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Redux%E7%9A%84%E4%BD%BF%E7%94%A8-%E6%B1%82%E5%92%8C%E6%A1%88%E4%BE%8B"><span class="toc-number">1.</span> <span class="toc-text">Redux的使用(求和案例)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#store-js"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">store.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#constant-js"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">constant.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#count-action-js"><span class="toc-number">1.0.0.3.</span> <span class="toc-text">count_action.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#count-reducer-js"><span class="toc-number">1.0.0.4.</span> <span class="toc-text">count_reducer.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#index-js"><span class="toc-number">1.0.0.5.</span> <span class="toc-text">index.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Count-jsx"><span class="toc-number">1.0.0.6.</span> <span class="toc-text">Count.jsx</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redux%E7%9A%84%E4%BD%BF%E7%94%A8-%E6%95%B0%E6%8D%AE%E6%A1%88%E4%BE%8B"><span class="toc-number">2.</span> <span class="toc-text">Redux的使用(数据案例)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#store-js-1"><span class="toc-number">2.0.0.1.</span> <span class="toc-text">store.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#constant-js-1"><span class="toc-number">2.0.0.2.</span> <span class="toc-text">constant.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#action-js"><span class="toc-number">2.0.0.3.</span> <span class="toc-text">action.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#reudcer-js"><span class="toc-number">2.0.0.4.</span> <span class="toc-text">reudcer.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#index-js-1"><span class="toc-number">2.0.0.5.</span> <span class="toc-text">index.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Home-jsx"><span class="toc-number">2.0.0.6.</span> <span class="toc-text">Home.jsx</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5RTK%EF%BC%88%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">同步RTK（持久化）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#index-js-2"><span class="toc-number">3.0.0.1.</span> <span class="toc-text">index.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#App-jsx"><span class="toc-number">3.0.0.2.</span> <span class="toc-text">App.jsx</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#store-js-2"><span class="toc-number">3.0.0.3.</span> <span class="toc-text">store.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#slice-js"><span class="toc-number">3.0.0.4.</span> <span class="toc-text">slice.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Home-jsx-1"><span class="toc-number">3.0.0.5.</span> <span class="toc-text">Home.jsx</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5RTK%EF%BC%88%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">异步RTK（持久化）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#index-js-3"><span class="toc-number">4.0.0.1.</span> <span class="toc-text">index.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#App-jsx-1"><span class="toc-number">4.0.0.2.</span> <span class="toc-text">App.jsx</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#store-js-3"><span class="toc-number">4.0.0.3.</span> <span class="toc-text">store.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#slice-js-1"><span class="toc-number">4.0.0.4.</span> <span class="toc-text">slice.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Home-jsx-2"><span class="toc-number">4.0.0.5.</span> <span class="toc-text">Home.jsx</span></a></li></ol></li></ol></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        Redux以及中间件RTK的使用（持久化版）
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">John Doe</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-05-19T06:52:03.000Z" class="dt-published" itemprop="datePublished">2023-05-19</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/%E7%BC%96%E7%A8%8B/">编程</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/React/" rel="tag">React</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="Redux的使用-求和案例"><a href="#Redux的使用-求和案例" class="headerlink" title="Redux的使用(求和案例)"></a>Redux的使用(求和案例)</h2><h5 id="store-js"><a href="#store-js" class="headerlink" title="store.js"></a>store.js</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    该文件专门用于暴露一个store对象 整个应用只有一个store对象</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">// 引入createStore 专门用于创建redux中最为核心的store对象</span></span><br><span class="line"><span class="keyword">import</span> &#123; legacy_createStore &#125; <span class="keyword">from</span> <span class="string">&#x27;redux&#x27;</span></span><br><span class="line"><span class="comment">// 引入为Count组件服务的reducer</span></span><br><span class="line"><span class="keyword">import</span> countReducer <span class="keyword">from</span> <span class="string">&quot;./count_reducer.js&quot;</span></span><br><span class="line"><span class="comment">// 暴露store</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">legacy_createStore</span>(countReducer)</span><br></pre></td></tr></table></figure>
 <h5 id="constant-js"><a href="#constant-js" class="headerlink" title="constant.js"></a>constant.js</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 该模块是用于定义action对象中type类型的常量值</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="variable constant_">INCREMENT</span>=<span class="string">&#x27;increment&#x27;</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="variable constant_">DECREMENT</span>=<span class="string">&#x27;decrement&#x27;</span></span><br></pre></td></tr></table></figure>
 <h5 id="count-action-js"><a href="#count-action-js" class="headerlink" title="count_action.js"></a>count_action.js</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 该文件专门为Count组件生成action对象</span></span><br><span class="line"><span class="comment">// 目的只有一个：便于管理的同时防止程序员单词写错</span></span><br><span class="line"><span class="keyword">import</span> &#123;<span class="variable constant_">INCREMENT</span>,<span class="variable constant_">DECREMENT</span>&#125; <span class="keyword">from</span> <span class="string">&#x27;./constant&#x27;</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">createIncrementAction</span>=(<span class="params">data</span>)=&gt;&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="attr">type</span>:<span class="variable constant_">INCREMENT</span>,data&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">createDecrementAction</span>=(<span class="params">data</span>)=&gt;&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="attr">type</span>:<span class="variable constant_">DECREMENT</span>,data&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="count-reducer-js"><a href="#count-reducer-js" class="headerlink" title="count_reducer.js"></a>count_reducer.js</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment">    1、该文件用于创建一个为Count组件服务的reducer reducer的本质就是一个函数</span></span><br><span class="line"><span class="comment">    2、reducer函数会接到两个参数 分别为：之前的状态(preState) 动作对象(action)</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">import</span> &#123;<span class="variable constant_">INCREMENT</span>,<span class="variable constant_">DECREMENT</span>&#125; <span class="keyword">from</span> <span class="string">&#x27;./constant&#x27;</span></span><br><span class="line"><span class="keyword">const</span> initState=<span class="number">0</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">countReducer</span>(<span class="params">pre=initState,action</span>)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(pre,action)</span><br><span class="line">    <span class="comment">// 从action对象中获取type data</span></span><br><span class="line">    <span class="keyword">const</span> &#123;type,data&#125;=action</span><br><span class="line">    <span class="comment">// 根据type决定如何加工数据</span></span><br><span class="line">    <span class="keyword">switch</span> (type) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="attr">INCREMENT</span>: <span class="comment">//如果是加</span></span><br><span class="line">            <span class="keyword">return</span> pre + data</span><br><span class="line">        <span class="keyword">case</span> <span class="attr">DECREMENT</span>: <span class="comment">//如果是减</span></span><br><span class="line">            <span class="keyword">return</span> pre - data</span><br><span class="line">        <span class="attr">default</span>:</span><br><span class="line">            <span class="keyword">return</span> pre</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -216,51 +200,143 @@
 <h5 id="store-js-3"><a href="#store-js-3" class="headerlink" title="store.js"></a>store.js</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入创建store的工具</span></span><br><span class="line"><span class="keyword">import</span> &#123;configureStore&#125; <span class="keyword">from</span> <span class="string">&quot;@reduxjs/toolkit&quot;</span></span><br><span class="line"><span class="comment">// 引入持久化的工具 //下载方法npm i redux-persist</span></span><br><span class="line"><span class="keyword">import</span> &#123;persistStore,persistReducer&#125; <span class="keyword">from</span> <span class="string">&#x27;redux-persist&#x27;</span></span><br><span class="line"><span class="comment">// 引入存储方法</span></span><br><span class="line"><span class="keyword">import</span> storage <span class="keyword">from</span> <span class="string">&#x27;redux-persist/lib/storage&#x27;</span></span><br><span class="line"><span class="comment">// 引入切片</span></span><br><span class="line"><span class="keyword">import</span> counterSlice  <span class="keyword">from</span> <span class="string">&quot;./slice&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 持久化</span></span><br><span class="line"><span class="keyword">const</span> persistConfig = &#123;</span><br><span class="line">    <span class="attr">key</span>: <span class="string">&#x27;root&#x27;</span>,</span><br><span class="line">    storage,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 将切片存入persistReducer</span></span><br><span class="line"><span class="keyword">const</span> persistedReducer = <span class="title function_">persistReducer</span>(persistConfig,counterSlice);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> store = <span class="title function_">configureStore</span>(&#123;</span><br><span class="line">    <span class="attr">reducer</span>: persistedReducer,</span><br><span class="line">    <span class="attr">middleware</span>: <span class="function">(<span class="params">getDefaultMiddleware</span>) =&gt;</span></span><br><span class="line">    <span class="title function_">getDefaultMiddleware</span>(&#123;</span><br><span class="line">        <span class="attr">serializableCheck</span>: <span class="literal">false</span>,</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> persistor = <span class="title function_">persistStore</span>(store)</span><br></pre></td></tr></table></figure>
 <h5 id="slice-js-1"><a href="#slice-js-1" class="headerlink" title="slice.js"></a>slice.js</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入创建切片的工具 以及创建异步的工具</span></span><br><span class="line"><span class="keyword">import</span> &#123;createSlice,createAsyncThunk&#125; <span class="keyword">from</span> <span class="string">&quot;@reduxjs/toolkit&quot;</span></span><br><span class="line"><span class="comment">// 引入网络请求</span></span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span></span><br><span class="line"><span class="comment">// 通过createAsyncThunk发送网络请求 第一个参数是声明 第二个参数是回调</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> fetchHomeMultidataAction =<span class="title function_">createAsyncThunk</span>(</span><br><span class="line">    <span class="string">&quot;Home&quot;</span>,</span><br><span class="line">    <span class="keyword">async</span> ()=&gt;&#123;</span><br><span class="line">        <span class="keyword">const</span> res=<span class="keyword">await</span> axios.<span class="title function_">get</span>(<span class="string">&#x27;http://localhost:8888/goods/list&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> res.<span class="property">data</span></span><br><span class="line">    &#125;</span><br><span class="line">)</span><br><span class="line"><span class="comment">// 初始化数据</span></span><br><span class="line"><span class="keyword">const</span> initialState = &#123;</span><br><span class="line">    <span class="attr">data</span>:[]</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 创建切片</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> counterSlice=<span class="title function_">createSlice</span>(&#123;</span><br><span class="line">    <span class="attr">name</span>:<span class="string">&#x27;count&#x27;</span>,</span><br><span class="line">    initialState,</span><br><span class="line">    <span class="comment">// 使用extraReducers解析异步路由 extraReducers有三个状态 fulfilled成功 padding进行中 reject失败</span></span><br><span class="line">    <span class="attr">extraReducers</span>:&#123;</span><br><span class="line">        [fetchHomeMultidataAction.<span class="property">fulfilled</span>](state,&#123;payload&#125;)&#123;</span><br><span class="line">            <span class="comment">// 请求成功后将数据放到初始化的data数组中</span></span><br><span class="line">            state.<span class="property">data</span>=payload.<span class="property">list</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 导出切片</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> counterSlice.<span class="property">reducer</span></span><br></pre></td></tr></table></figure>
 <h5 id="Home-jsx-2"><a href="#Home-jsx-2" class="headerlink" title="Home.jsx"></a>Home.jsx</h5><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useEffect &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="comment">// 引入connect用于连接UI组件与redux</span></span><br><span class="line"><span class="keyword">import</span> &#123;connect&#125; <span class="keyword">from</span> <span class="string">&#x27;react-redux&#x27;</span></span><br><span class="line"><span class="comment">// import &#123; useDispatch, useSelector &#125; from &#x27;react-redux&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123;fetchHomeMultidataAction&#125; <span class="keyword">from</span> <span class="string">&quot;../redux/slice&quot;</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Home</span>(<span class="params">props</span>) &#123;</span><br><span class="line">    <span class="comment">// const counter=useSelector((state)=&gt;state.data)</span></span><br><span class="line">    <span class="comment">// const dispatch=useDispatch()</span></span><br><span class="line"></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(props.<span class="property">data</span>)</span><br><span class="line">    <span class="title function_">useEffect</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">        props.<span class="title function_">qingqiu</span>()</span><br><span class="line">    &#125;,[])</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            </span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 创建并暴露Home的容器组件</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">connect</span>(</span><br><span class="line">    <span class="function"><span class="params">state</span>=&gt;</span>(&#123;<span class="attr">data</span>:state.<span class="property">data</span>&#125;),</span><br><span class="line">    <span class="function"><span class="params">dispatch</span>=&gt;</span>(&#123;</span><br><span class="line">        <span class="attr">qingqiu</span>:<span class="function">()=&gt;</span>&#123;<span class="title function_">dispatch</span>(<span class="title function_">fetchHomeMultidataAction</span>())&#125;,</span><br><span class="line">    &#125;)</span><br><span class="line">)(<span class="title class_">Home</span>)</span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
     </div>
+
     
     
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Redux%E7%9A%84%E4%BD%BF%E7%94%A8-%E6%B1%82%E5%92%8C%E6%A1%88%E4%BE%8B"><span class="toc-number">1.</span> <span class="toc-text">Redux的使用(求和案例)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#store-js"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">store.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#constant-js"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">constant.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#count-action-js"><span class="toc-number">1.0.0.3.</span> <span class="toc-text">count_action.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#count-reducer-js"><span class="toc-number">1.0.0.4.</span> <span class="toc-text">count_reducer.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#index-js"><span class="toc-number">1.0.0.5.</span> <span class="toc-text">index.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Count-jsx"><span class="toc-number">1.0.0.6.</span> <span class="toc-text">Count.jsx</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redux%E7%9A%84%E4%BD%BF%E7%94%A8-%E6%95%B0%E6%8D%AE%E6%A1%88%E4%BE%8B"><span class="toc-number">2.</span> <span class="toc-text">Redux的使用(数据案例)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#store-js-1"><span class="toc-number">2.0.0.1.</span> <span class="toc-text">store.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#constant-js-1"><span class="toc-number">2.0.0.2.</span> <span class="toc-text">constant.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#action-js"><span class="toc-number">2.0.0.3.</span> <span class="toc-text">action.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#reudcer-js"><span class="toc-number">2.0.0.4.</span> <span class="toc-text">reudcer.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#index-js-1"><span class="toc-number">2.0.0.5.</span> <span class="toc-text">index.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Home-jsx"><span class="toc-number">2.0.0.6.</span> <span class="toc-text">Home.jsx</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5RTK%EF%BC%88%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">同步RTK（持久化）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#index-js-2"><span class="toc-number">3.0.0.1.</span> <span class="toc-text">index.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#App-jsx"><span class="toc-number">3.0.0.2.</span> <span class="toc-text">App.jsx</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#store-js-2"><span class="toc-number">3.0.0.3.</span> <span class="toc-text">store.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#slice-js"><span class="toc-number">3.0.0.4.</span> <span class="toc-text">slice.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Home-jsx-1"><span class="toc-number">3.0.0.5.</span> <span class="toc-text">Home.jsx</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5RTK%EF%BC%88%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">异步RTK（持久化）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#index-js-3"><span class="toc-number">4.0.0.1.</span> <span class="toc-text">index.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#App-jsx-1"><span class="toc-number">4.0.0.2.</span> <span class="toc-text">App.jsx</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#store-js-3"><span class="toc-number">4.0.0.3.</span> <span class="toc-text">store.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#slice-js-1"><span class="toc-number">4.0.0.4.</span> <span class="toc-text">slice.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Home-jsx-2"><span class="toc-number">4.0.0.5.</span> <span class="toc-text">Home.jsx</span></a></li></ol></li></ol></li></ol></li></ol>
+      </div>
     
-    
-    
-    
-    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/05/19/redux/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/05/19/redux/&text=Redux以及中间件RTK的使用（持久化版）"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/05/19/redux/&title=Redux以及中间件RTK的使用（持久化版）"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/05/19/redux/&is_video=false&description=Redux以及中间件RTK的使用（持久化版）"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Redux以及中间件RTK的使用（持久化版）&body=Check out this article: http://example.com/2023/05/19/redux/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/05/19/redux/&title=Redux以及中间件RTK的使用（持久化版）"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/05/19/redux/&title=Redux以及中间件RTK的使用（持久化版）"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/05/19/redux/&title=Redux以及中间件RTK的使用（持久化版）"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/05/19/redux/&title=Redux以及中间件RTK的使用（持久化版）"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/05/19/redux/&name=Redux以及中间件RTK的使用（持久化版）&description=false"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/05/19/redux/&t=Redux以及中间件RTK的使用（持久化版）"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
 </div>
 
-                    <footer id="footer">
-    <div id="footer-wrap">
-        <div>
-            &copy;
-            2022 - 2023 Zzm
-            <span id="footer-icon">
-                <i class="fa-solid fa-font-awesome fa-fw"></i>
-            </span>
-            &commat;John Doe
-        </div>
-        <div>
-            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
-            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
-        </div>
         
-    </div>
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2023
+    John Doe
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
 </footer>
 
-                </div>
-            </transition>
-            
-            <transition name="fade">
-                <div id="preview" ref="preview" v-show="previewShow">
-                    <img id="preview-content" ref="previewContent" />
-                </div>
-            </transition>
-            
-        </div>
-        <script src="/js/main.js"></script>
-        
-        
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
 
 
 
 
-        
-    </body>
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
 </html>
